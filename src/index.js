@@ -5,6 +5,10 @@ import '~/config/ReactotronConfig';
 import {NavigationContainer} from '@react-navigation/native';
 import Routes from '~/routes';
 
+import moment from 'moment';
+import 'moment/locale/pt-br';
+moment.locale('pt-br');
+
 const App = () => (
   <NavigationContainer>
     <StatusBar

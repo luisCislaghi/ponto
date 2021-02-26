@@ -14,10 +14,15 @@ const Routes = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeTintColor: 'darkgreen',
+        activeTintColor: '#0ab368',
         inactiveTintColor: 'rgba(0,0,0,0.85)',
       }}>
       <Tab.Screen name="Ponto" component={Main} options={{...Icon('clock')}} />
+      {/* <Tab.Screen
+        name="Perfil"
+        component={() => {}}
+        options={{...Icon('user')}}
+      /> */}
     </Tab.Navigator>
   );
 };
