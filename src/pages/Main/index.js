@@ -25,16 +25,28 @@ import MapView, {Marker} from 'react-native-maps';
 const Main = () => {
   const [location, setLocation] = useState(null);
   const [time, setTime] = useState(moment());
-  const getLocation = async () => {
-    console.log('anasednjauisj');
+  const [region, setRegion] = useState(null);
 
+  useEffect(() => {
+    if (!location) return;
+    setRegion({
+      latitude: location?.coords?.latitude,
+      longitude: location?.coords?.longitude,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    });
+  }, [location]);
+
+  function registrarPonto() {
+    console.log('object');
+  }
+
+  const getLocation = async () => {
     try {
       const granted = await pa.check(pa.PERMISSIONS.ACCESS_FINE_LOCATION);
-      console.log('nhec', granted);
       if (granted) {
         Geolocation.getCurrentPosition(
           (position) => {
-            console.log(position);
             setLocation(position);
           },
           (error) => {
@@ -44,20 +56,18 @@ const Main = () => {
           {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
         );
       } else {
-        console.log('O cara nao quis....');
+        console.log('Usuário não permitiu acessar a localização.');
         pa.request(pa.PERMISSIONS.ACCESS_FINE_LOCATION);
       }
     } catch (error) {
-      console.log('dammit', error);
+      console.log(error);
     }
   };
 
   useEffect(() => {
-    const i = setInterval(() => setTime(moment()), 800);
+    setInterval(() => setTime(moment()), 800);
     getLocation();
     if (!location) getLocation();
-    console.log(location?.coords?.latitude);
-    console.log(location?.coords?.longitude);
   }, []);
 
   return (
@@ -70,16 +80,13 @@ const Main = () => {
         <Time>{time.format('LTS')}</Time>
       </HeaderContainer>
       <MapContainer>
-        {location?.coords?.longitude && (
+        {region && (
           <MapView
+            showsUserLocation
             style={{flex: 1}}
-            region={{
-              latitude: location?.coords?.latitude,
-              longitude: location?.coords?.longitude,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}>
-            <Marker
+            region={region}
+            onRegionChange={setRegion}>
+            {/* <Marker
               key={'1'}
               coordinate={{
                 longitude: location?.coords?.longitude,
@@ -87,12 +94,12 @@ const Main = () => {
               }}
               title={'Você'}
               description={'está aqui'}
-            />
+            /> */}
           </MapView>
         )}
       </MapContainer>
       <ButtonContainer>
-        <Button onPress={() => {}}>Registrar Ponto</Button>
+        <Button onPress={() => registrarPonto()}>Registrar Ponto</Button>
       </ButtonContainer>
     </Container>
   );
