@@ -4,7 +4,7 @@ import BaseText from '~/components/text/styles';
 export const ButtonContainer = styled.TouchableOpacity`
   align-self: flex-start;
   flex-direction: row;
-  padding: 16px 24px;
+  padding: ${({size}) => (size === 'lg' ? '20px 28px' : '16px 24px')};
   border-radius: 40px;
   background-color: #0ab368;
 `;

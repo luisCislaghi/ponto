@@ -4,23 +4,19 @@ import {
   Container,
   HeaderContainer,
   Title,
-  Form,
-  Input,
-  Submit,
-  List,
   MapContainer,
   Date,
   ButtonContainer,
   Time,
+  MapView,
   TextBold,
 } from './styles';
-import Ponto from '~/components/ponto';
 import Button from '~/components/button';
-import {pontosData} from '~/data';
 import {PermissionsAndroid as pa} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import moment from 'moment';
-import MapView, {Marker} from 'react-native-maps';
+import {Marker} from 'react-native-maps';
+import realm from '~/services/realm';
 
 const Main = () => {
   const [location, setLocation] = useState(null);
@@ -37,8 +33,27 @@ const Main = () => {
     });
   }, [location]);
 
-  function registrarPonto() {
-    console.log('object');
+  async function registrarPonto() {
+    if (location?.coords?.latitude) {
+      try {
+        const novoPonto = {
+          id: `AC${Math.random() * 10}`,
+          latitude: String(location?.coords?.latitude),
+          longitude: String(location?.coords?.longitude),
+          date: time.toDate(),
+        };
+
+        console.log('novo: ', novoPonto);
+
+        realm.write(() => {
+          realm.create('Ponto', novoPonto);
+        });
+
+        // realm.close();
+      } catch (error) {
+        console.log('error', error);
+      }
+    }
   }
 
   const getLocation = async () => {
@@ -68,6 +83,9 @@ const Main = () => {
     setInterval(() => setTime(moment()), 800);
     getLocation();
     if (!location) getLocation();
+    // return () => {
+    //   realm.close();
+    // };
   }, []);
 
   return (
@@ -83,23 +101,28 @@ const Main = () => {
         {region && (
           <MapView
             showsUserLocation
-            style={{flex: 1}}
-            region={region}
-            onRegionChange={setRegion}>
-            {/* <Marker
+            initialRegion={region}
+            onRegionChangeComplete={setRegion}>
+            <Marker
               key={'1'}
               coordinate={{
-                longitude: location?.coords?.longitude,
-                latitude: location?.coords?.latitude,
+                longitude: -51.521834,
+                latitude: -29.161432,
               }}
-              title={'Você'}
-              description={'está aqui'}
-            /> */}
+              title={'Rodoviária Bento Gonçalves'}
+              description={'Você pode bater o ponto próximo a este local'}
+            />
           </MapView>
         )}
       </MapContainer>
       <ButtonContainer>
-        <Button onPress={() => registrarPonto()}>Registrar Ponto</Button>
+        <Button
+          size="lg"
+          onPress={async () => {
+            await registrarPonto();
+          }}>
+          Registrar Ponto
+        </Button>
       </ButtonContainer>
     </Container>
   );

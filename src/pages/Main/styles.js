@@ -1,6 +1,7 @@
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import styled from 'styled-components/native';
 import Text from '~/components/text/styles';
+import Map from 'react-native-maps';
 
 export const Container = styled.View`
   flex: 1;
@@ -37,6 +38,11 @@ export const MapContainer = styled.View`
   background-color: #fff;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
+  overflow: hidden;
+`;
+
+export const MapView = styled(Map)`
+  flex: 1;
 `;
 
 export const ButtonContainer = styled.View`

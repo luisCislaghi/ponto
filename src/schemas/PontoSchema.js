@@ -3,11 +3,12 @@ export default class PontoSchema {
     name: 'Ponto',
     primaryKey: 'id',
     properties: {
-      id: {type: 'int', indexed: true},
+      id: {type: 'string', indexed: true},
       latitude: {type: 'string'},
       longitude: {type: 'string'},
+      image: {type: 'Image?'},
       date: {type: 'date'},
-      user_id: {type: 'int'},
+      observation: {type: 'string?'},
     },
   };
 }

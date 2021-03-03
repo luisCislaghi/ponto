@@ -1,21 +1,23 @@
 import Icon from 'react-native-vector-icons/Feather';
 import React from 'react';
+import moment from 'moment';
+import {Container, Data, Time, Block, SyncIcon} from './styles';
 
-import {Container, Data, Local} from './styles';
+export default ({data}) => {
+  const {date, latitude, longitude} = data;
+  console.log('b');
 
-const Ponto = ({data}) => {
   return (
     <Container>
-      <Data>
-        <Icon name="calendar" />
-        {data.data}
-      </Data>
-      <Local>
-        <Icon name="map-pin" />
-        {data.local}
-      </Local>
+      <Block>
+        <Time>{moment(date).format('LTS')}</Time>
+        <Data>{moment(date).format('LL')}</Data>
+      </Block>
+      <Block>
+        {parseInt((Math.random() * 10) % 2) === 0 && ( // gera randomicamente só para visual
+          <SyncIcon name="refresh-cw" />
+        )}
+      </Block>
     </Container>
   );
 };
-
-export default Ponto;
