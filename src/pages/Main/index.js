@@ -15,13 +15,16 @@ import Button from '~/components/button';
 import {PermissionsAndroid as pa} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import moment from 'moment';
-import {Marker} from 'react-native-maps';
+import {Marker, Circle} from 'react-native-maps';
 import realm from '~/services/realm';
+import ResumoPontoMainModal from './modal/index';
 
 const Main = () => {
   const [location, setLocation] = useState(null);
   const [time, setTime] = useState(moment());
   const [region, setRegion] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [ponto, setPonto] = useState(null);
 
   useEffect(() => {
     if (!location) return;
@@ -32,29 +35,6 @@ const Main = () => {
       longitudeDelta: 0.0421,
     });
   }, [location]);
-
-  async function registrarPonto() {
-    if (location?.coords?.latitude) {
-      try {
-        const novoPonto = {
-          id: `AC${Math.random() * 10}`,
-          latitude: String(location?.coords?.latitude),
-          longitude: String(location?.coords?.longitude),
-          date: time.toDate(),
-        };
-
-        console.log('novo: ', novoPonto);
-
-        realm.write(() => {
-          realm.create('Ponto', novoPonto);
-        });
-
-        // realm.close();
-      } catch (error) {
-        console.log('error', error);
-      }
-    }
-  }
 
   const getLocation = async () => {
     try {
@@ -79,6 +59,12 @@ const Main = () => {
     }
   };
 
+  const onSubmitObservacao = (obs) => {
+    const newPonto = {...ponto};
+    newPonto.observation = obs;
+    setPonto(newPonto);
+  };
+
   useEffect(() => {
     setInterval(() => setTime(moment()), 800);
     getLocation();
@@ -97,29 +83,52 @@ const Main = () => {
         <Date>{time.format('LL')}</Date>
         <Time>{time.format('LT')}</Time>
       </HeaderContainer>
+      <ResumoPontoMainModal
+        ponto={ponto}
+        onSubmitObservacao={onSubmitObservacao}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
       <MapContainer>
         {region && (
           <MapView
             showsUserLocation
             initialRegion={region}
             onRegionChangeComplete={setRegion}>
-            <Marker
-              key={'1'}
-              coordinate={{
-                longitude: -51.521834,
-                latitude: -29.161432,
-              }}
-              title={'Rodoviária Bento Gonçalves'}
-              description={'Você pode bater o ponto próximo a este local'}
-            />
+            <>
+              <Marker
+                key={'1'}
+                coordinate={{
+                  longitude: -51.521834,
+                  latitude: -29.161432,
+                }}
+                title={'Rodoviária Bento Gonçalves'}
+                description={'Você pode bater o ponto próximo a este local'}
+              />
+              <Circle
+                center={{
+                  longitude: -51.521834,
+                  latitude: -29.161432,
+                }}
+                strokeColor="#0ab368"
+                fillColor="rgba(10, 179, 104,0.30)"
+                radius={200}
+              />
+            </>
           </MapView>
         )}
       </MapContainer>
       <ButtonContainer>
         <Button
           size="lg"
-          onPress={async () => {
-            await registrarPonto();
+          onPress={() => {
+            setPonto({
+              id: `AC${Math.random() * 10}`,
+              latitude: String(location?.coords?.latitude),
+              longitude: String(location?.coords?.longitude),
+              date: time.toDate(),
+            });
+            setShowModal(true);
           }}>
           Registrar Ponto
         </Button>

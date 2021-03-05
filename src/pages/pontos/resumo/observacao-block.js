@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Keyboard} from 'react-native';
 import Modal from '~/components/modal';
 
 import {
@@ -13,19 +14,20 @@ import realm from '~/services/realm';
 import Toast from 'react-native-toast-message';
 
 const ObservacaoBlock = ({ponto, onSubmit}) => {
-  const [obs, setObs] = useState('');
+  const [obs, setObs] = useState(ponto.observation);
   const [showObsModal, setShowObsModal] = useState(false);
 
   const handleSubmit = () => {
-    if (onSubmit) {
-      onSubmit(obs);
-    } else {
-      if (ponto && ponto.observation !== obs) {
+    if (ponto.observation !== obs) {
+      if (onSubmit) {
+        onSubmit(obs);
+        setShowObsModal(false);
+      } else {
         try {
           realm.write(() => {
             const p = realm
               .objects('Ponto')
-              .filter(({id}) => id === ponto.id)[0];
+              .filter((e) => e.id === ponto.id)[0];
             p.observation = obs;
           });
           setShowObsModal(false);
@@ -63,7 +65,11 @@ const ObservacaoBlock = ({ponto, onSubmit}) => {
             onPress: () => handleSubmit(),
           },
         ]}>
-        <ObsInput onChangeText={(text) => setObs(text)} value={obs} />
+        <ObsInput
+          onChangeText={setObs}
+          onSubmitEditing={handleSubmit}
+          defaultValue={obs}
+        />
       </Modal>
       <ObservacaoTitleBlock>
         <Title>Observação</Title>

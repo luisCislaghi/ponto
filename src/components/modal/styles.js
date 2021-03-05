@@ -71,7 +71,7 @@ export const ObsInput = styled.TextInput.attrs({
 export const Title = styled(BaseText)`
   /* font-size: 18px; */
   margin: 12px 0 8px 0;
-  font-weight: bold;
+  font-family: 'Quicksand-SemiBold';
 `;
 
 export const MapContainer = styled.View`

@@ -20,7 +20,7 @@ export default ({
     {
       text: <Link>Cancelar</Link>,
       onPress: () => {
-        close();
+        setVisible(false);
       },
     },
     {
@@ -39,7 +39,6 @@ export default ({
       onClose={close}
       maskClosable
       visible={Boolean(visible)}
-      closable
       footer={footer || footerButtons}>
       <Container>{children}</Container>
     </Modal>

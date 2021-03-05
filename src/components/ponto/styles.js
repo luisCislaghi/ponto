@@ -47,5 +47,5 @@ export const SyncIcon = styled(Icon)`
 `;
 export const DeleteIcon = styled(Icon)`
   color: #fff;
-  font-size: 24px;
+  font-size: 20px;
 `;

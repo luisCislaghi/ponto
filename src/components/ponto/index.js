@@ -57,9 +57,9 @@ export default ({data, setPontoAtivo}) => {
               <Data>{moment(data.date).format('LL')}</Data>
             </Block>
             <Block>
-              {parseInt((Math.random() * 10) % 2) === 0 && ( // gera randomicamente só para visual
-                <SyncIcon name="refresh-cw" />
-              )}
+              {/* {parseInt((Math.random() * 10) % 2) === 0 && ( // gera randomicamente só para visual */}
+              <SyncIcon name="refresh-cw" />
+              {/* )} */}
             </Block>
           </Container>
         </Pressable>

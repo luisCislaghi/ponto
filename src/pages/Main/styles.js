@@ -30,7 +30,7 @@ export const Time = styled(Text)`
 `;
 
 export const TextBold = styled(Title)`
-  font-weight: bold;
+  font-family: 'Quicksand-SemiBold';
 `;
 
 export const MapContainer = styled.View`

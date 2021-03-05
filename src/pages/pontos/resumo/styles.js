@@ -41,14 +41,14 @@ export const ObsInput = styled.TextInput.attrs({
   borderRadius: 40,
 })`
   height: 40px;
+  font-family: 'Quicksand';
   color: rgba(0, 0, 0, 0.85);
   padding: 10px 15px;
 `;
 
 export const Title = styled(BaseText)`
-  /* font-size: 18px; */
   margin: 12px 0 8px 0;
-  font-weight: bold;
+  font-family: 'Quicksand-SemiBold';
 `;
 
 export const MapContainer = styled.View`

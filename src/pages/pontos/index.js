@@ -4,7 +4,7 @@ import {Container, Title, HeaderContainer, List} from './styles';
 import Ponto from '~/components/ponto';
 import moment from 'moment';
 import realm from '~/services/realm';
-import {ResumoPontoModal} from './modal/index';
+import {ResumoPontoModal} from './modal';
 const Pontos = () => {
   const [pontos, setPontos] = useState([]);
   const [pontoAtivo, setPontoAtivo] = useState(null);
