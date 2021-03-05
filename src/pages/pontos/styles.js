@@ -1,7 +1,6 @@
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import styled from 'styled-components/native';
 import Text from '~/components/text/styles';
-import {FlatList} from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
@@ -15,7 +14,7 @@ export const Title = styled(Text)`
   font-size: 24px;
   /* color: #fff; */
 `;
-export const List = styled(FlatList).attrs({
+export const List = styled.FlatList.attrs({
   contentContainerStyle: {paddingHorizontal: 20},
   showVerticalScrollIndicator: false,
 })`

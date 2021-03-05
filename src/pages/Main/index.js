@@ -92,10 +92,10 @@ const Main = () => {
     <Container>
       <HeaderContainer>
         <Title>
-          Olá, <TextBold>Luis!</TextBold>
+          Olá, <TextBold>Luis</TextBold>
         </Title>
         <Date>{time.format('LL')}</Date>
-        <Time>{time.format('LTS')}</Time>
+        <Time>{time.format('LT')}</Time>
       </HeaderContainer>
       <MapContainer>
         {region && (
