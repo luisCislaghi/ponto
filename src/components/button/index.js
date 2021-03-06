@@ -3,10 +3,12 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import {ButtonContainer, Text} from './styles';
 
-const Button = ({children, onPress, size, ...props}) => {
+const Button = ({children, onPress, size, ghost, ...props}) => {
   return (
-    <ButtonContainer {...props} size={size} onPress={onPress}>
-      <Text size={size}>{children}</Text>
+    <ButtonContainer {...props} size={size} ghost={ghost} onPress={onPress}>
+      <Text size={size} ghost={ghost}>
+        {children}
+      </Text>
     </ButtonContainer>
   );
 };
