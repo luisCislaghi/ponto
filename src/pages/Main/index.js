@@ -18,6 +18,10 @@ import moment from 'moment';
 import {Marker, Circle} from 'react-native-maps';
 import realm from '~/services/realm';
 import ResumoPontoMainModal from './modal/index';
+import Camera from '~/components/camera';
+import ConfirmPhoto from './confirm-photo/index';
+import uuid from 'react-native-uuid';
+import * as RNFS from 'react-native-fs';
 
 const Main = () => {
   const [location, setLocation] = useState(null);
@@ -25,6 +29,41 @@ const Main = () => {
   const [region, setRegion] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [ponto, setPonto] = useState(null);
+  const [isCameraVisible, setIsCameraVisible] = useState(false);
+  const [photo, setPhoto] = useState(null);
+
+  const onCloseCamera = () => {
+    setIsCameraVisible(false);
+  };
+
+  const onChangePhoto = (newPhoto) => {
+    setPhoto(newPhoto);
+    setIsCameraVisible(false);
+  };
+
+  const onConfirmPhoto = () => {
+    if (photo) {
+      const newPath = `${RNFS.DocumentDirectoryPath}/${uuid.v1()}.jpg`;
+      RNFS.copyFile(photo, newPath).catch((err) => {
+        console.log(err.message, err.code);
+      });
+      setPonto({
+        id: uuid.v1(),
+        latitude: String(location?.coords?.latitude),
+        longitude: String(location?.coords?.longitude),
+        date: time.toDate(),
+        image: {
+          id: uuid.v1(),
+          src: newPath,
+        },
+      });
+
+      setPhoto(null);
+      setShowModal(true);
+    } else {
+      setIsCameraVisible(true);
+    }
+  };
 
   useEffect(() => {
     if (!location) return;
@@ -59,6 +98,10 @@ const Main = () => {
     }
   };
 
+  const handleRegistrar = async () => {
+    setIsCameraVisible(true);
+  };
+
   const onSubmitObservacao = (obs) => {
     const newPonto = {...ponto};
     newPonto.observation = obs;
@@ -76,6 +119,23 @@ const Main = () => {
 
   return (
     <Container>
+      <Camera
+        isVisible={isCameraVisible}
+        onChangePhoto={onChangePhoto}
+        onCloseCamera={onCloseCamera}
+      />
+      <ConfirmPhoto
+        photo={photo}
+        onNewphoto={() => {
+          setPhoto(null);
+          setIsCameraVisible(true);
+        }}
+        onCancel={() => {
+          setPhoto(null);
+          onCloseCamera();
+        }}
+        onConfirm={onConfirmPhoto}
+      />
       <HeaderContainer>
         <Title>
           Olá, <TextBold>Luis</TextBold>
@@ -112,24 +172,14 @@ const Main = () => {
                 }}
                 strokeColor="#0ab368"
                 fillColor="rgba(10, 179, 104,0.30)"
-                radius={200}
+                radius={500}
               />
             </>
           </MapView>
         )}
       </MapContainer>
       <ButtonContainer>
-        <Button
-          size="lg"
-          onPress={() => {
-            setPonto({
-              id: `AC${Math.random() * 10}`,
-              latitude: String(location?.coords?.latitude),
-              longitude: String(location?.coords?.longitude),
-              date: time.toDate(),
-            });
-            setShowModal(true);
-          }}>
+        <Button size="lg" onPress={handleRegistrar}>
           Registrar Ponto
         </Button>
       </ButtonContainer>

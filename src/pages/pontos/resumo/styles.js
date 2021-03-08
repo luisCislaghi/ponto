@@ -3,6 +3,7 @@ import BaseText from '~/components/text/styles';
 import IconLib from 'react-native-vector-icons/Feather';
 import Map from 'react-native-maps';
 import {Dimensions} from 'react-native';
+import {Image as RNImage} from 'react-native';
 
 export const Block = styled.View`
   flex-direction: row;
@@ -62,4 +63,11 @@ export const MapContainer = styled.View`
 export const MapView = styled(Map)`
   flex: 1;
   height: 200px;
+`;
+
+export const Image = styled(RNImage)`
+  /* flex: 1; */
+
+  width: 100px;
+  height: 100px;
 `;

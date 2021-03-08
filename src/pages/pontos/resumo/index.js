@@ -2,7 +2,7 @@ import React from 'react';
 import {Marker} from 'react-native-maps';
 import moment from 'moment';
 import ObservacaoBlock from '../resumo/observacao-block';
-import {Icon, Block, Text, Title, MapView, MapContainer} from './styles';
+import {Icon, Block, Text, Title, MapView, MapContainer, Image} from './styles';
 const ResumoPonto = ({ponto, showModal, onSubmitObservacao}) => {
   return (
     <>
@@ -41,8 +41,12 @@ const ResumoPonto = ({ponto, showModal, onSubmitObservacao}) => {
           )}
         </MapContainer>
       </Block>
-      {/* <Title>Foto</Title>
-    <Block></Block> */}
+      <Title>Foto</Title>
+      {ponto.image?.src && (
+        <Block>
+          <Image source={{uri: ponto.image.src}} />
+        </Block>
+      )}
     </>
   );
 };

@@ -1,12 +1,18 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/Feather';
 
-import {ButtonContainer, Text} from './styles';
+import {ButtonContainer, Text, Icon} from './styles';
 
-const Button = ({children, onPress, size, ...props}) => {
+const Button = ({children, onPress, icon, size, ghost, ...props}) => {
   return (
-    <ButtonContainer {...props} size={size} onPress={onPress}>
-      <Text size={size}>{children}</Text>
+    <ButtonContainer {...props} size={size} ghost={ghost} onPress={onPress}>
+      <>
+        {icon && <Icon ghost={ghost} buttonSize={size} name={icon} />}
+        {children && (
+          <Text size={size} icon={icon} ghost={ghost}>
+            {children}
+          </Text>
+        )}
+      </>
     </ButtonContainer>
   );
 };
