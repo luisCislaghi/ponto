@@ -41,7 +41,7 @@ export default ({
       popup
       animationType="slide-up"
       visible={Boolean(visible)}
-      footer={footer || footerButtons}>
+      footer={footer !== undefined ? footer : footerButtons}>
       <Container>{children}</Container>
     </PopupModal>
   );

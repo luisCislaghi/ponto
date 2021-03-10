@@ -26,8 +26,7 @@ export const PopupModal = styled(AntModal).attrs({
   elevation: 10,
 })`
   flex: 1;
-  /* width: ${Dimensions.get('window').width - 40}px; */
-  margin-top: 60px;
+  top: ${Dimensions.get('window').height * 0.15}px;
   background: #fff;
   padding: 10px;
   border-top-left-radius: 20px;

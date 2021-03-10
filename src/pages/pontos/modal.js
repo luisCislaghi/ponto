@@ -19,14 +19,7 @@ export const ResumoPontoModal = ({pontoAtivo, setPontoAtivo}) => {
       title="Resumo Ponto"
       setVisible={setPontoAtivo}
       visible={pontoAtivo}
-      footer={[
-        {
-          text: <Link>Ok</Link>,
-          onPress: () => {
-            setPontoAtivo(null);
-          },
-        },
-      ]}>
+      footer={null}>
       {data && <ResumoPonto ponto={data} showModal={pontoAtivo} />}
     </Modal>
   );
