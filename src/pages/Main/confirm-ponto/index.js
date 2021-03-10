@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import Modal from '~/components/modal';
+import Modal from '~/components/modal/popup';
+import AntModal from '@ant-design/react-native/lib/modal';
 import Button from '~/components/button';
 import realm from '~/services/realm';
 import ResumoPonto from '../../pontos/resumo/index';
-import {Container} from './styles';
+import {ButtonContainer, ActionsContainer} from './styles';
 import Toast from 'react-native-toast-message';
 
 const ResumoPontoMainModal = ({
@@ -38,12 +39,27 @@ const ResumoPontoMainModal = ({
     }
   }
 
+  const checkQuit = () => {
+    AntModal.alert('Descartar Ponto?', 'Você perderá as informalções', [
+      {
+        text: 'Não',
+        onPress: () => {},
+      },
+      {
+        text: 'Sim',
+        onPress: () => {
+          setShowModal(false);
+        },
+      },
+    ]);
+  };
+
   return (
     <Modal
       title="Registrar Ponto"
       setVisible={setShowModal}
-      visible={showModal}
-      footer={[]}>
+      onClose={checkQuit}
+      visible={showModal}>
       {ponto && (
         <>
           <ResumoPonto
@@ -51,14 +67,19 @@ const ResumoPontoMainModal = ({
             showModal={showModal}
             onSubmitObservacao={onSubmitObservacao}
           />
-          <Container>
-            <Button
-              onPress={() => {
-                registrarPonto();
-              }}>
-              Confirmar
-            </Button>
-          </Container>
+          <ActionsContainer>
+            <ButtonContainer>
+              <Button ghost onPress={checkQuit}>
+                Descartar
+              </Button>
+              <Button
+                onPress={() => {
+                  registrarPonto();
+                }}>
+                Confirmar
+              </Button>
+            </ButtonContainer>
+          </ActionsContainer>
         </>
       )}
     </Modal>

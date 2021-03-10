@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import Modal from '~/components/modal';
+import Modal from '~/components/modal/popup';
 import {Link} from '~/components/text/styles';
 
 import realm from '~/services/realm';

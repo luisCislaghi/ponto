@@ -17,7 +17,7 @@ import Geolocation from 'react-native-geolocation-service';
 import moment from 'moment';
 import {Marker, Circle} from 'react-native-maps';
 import realm from '~/services/realm';
-import ResumoPontoMainModal from './modal/index';
+import ResumoPontoMainModal from './confirm-ponto/index';
 import Camera from '~/components/camera';
 import ConfirmPhoto from './confirm-photo/index';
 import uuid from 'react-native-uuid';

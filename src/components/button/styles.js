@@ -16,6 +16,8 @@ export const ButtonContainer = styled.TouchableOpacity.attrs({
       : '12px 24px'};
   border-radius: ${({shape}) => (shape === 'circle' ? 200 : 40)}px;
   background-color: ${({ghost}) => (ghost ? '#fff' : '#0ab368')};
+  border-color: #0ab368;
+  border-width: ${({ghost}) => (ghost ? 1 : 0)}px;
   align-items: center;
 `;
 

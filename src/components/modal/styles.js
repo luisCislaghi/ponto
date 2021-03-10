@@ -16,9 +16,22 @@ export const Modal = styled(AntModal).attrs({
   elevation: 10,
 })`
   width: ${Dimensions.get('window').width - 40}px;
-  margin-top: 20px;
+  margin-top: 60px;
+  margin-bottom: 60px;
   background: #fff;
   border-radius: 20px;
+`;
+
+export const PopupModal = styled(AntModal).attrs({
+  elevation: 10,
+})`
+  flex: 1;
+  /* width: ${Dimensions.get('window').width - 40}px; */
+  margin-top: 60px;
+  background: #fff;
+  padding: 10px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 `;
 
 export const Container = styled.View`

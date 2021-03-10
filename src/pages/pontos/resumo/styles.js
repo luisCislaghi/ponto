@@ -5,6 +5,11 @@ import Map from 'react-native-maps';
 import {Dimensions} from 'react-native';
 import {Image as RNImage} from 'react-native';
 
+export const Container = styled.ScrollView`
+  /* flex: 1; */
+  max-height: ${Dimensions.get('window').height * 0.75}px;
+`;
+
 export const Block = styled.View`
   flex-direction: row;
   align-items: center;
@@ -55,7 +60,7 @@ export const Title = styled(BaseText)`
 export const MapContainer = styled.View`
   flex: 1;
   /* width: ${Dimensions.get('window').width - 40}px; */
-  border-radius: 20px;
+  border-radius: 10px;
   overflow: hidden;
   height: 200px;
 `;
@@ -66,8 +71,7 @@ export const MapView = styled(Map)`
 `;
 
 export const Image = styled(RNImage)`
-  /* flex: 1; */
-
-  width: 100px;
-  height: 100px;
+  width: ${Dimensions.get('window').width - 50}px;
+  height: ${((Dimensions.get('window').width - 50) * 4) / 3}px;
+  border-radius: 10px;
 `;
