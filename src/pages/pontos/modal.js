@@ -4,6 +4,7 @@ import {Link} from '~/components/text/styles';
 
 import realm from '~/services/realm';
 import ResumoPonto from './resumo';
+import {Container} from './styles';
 
 export const ResumoPontoModal = ({pontoAtivo, setPontoAtivo}) => {
   const [data, setData] = useState(null);
@@ -20,7 +21,11 @@ export const ResumoPontoModal = ({pontoAtivo, setPontoAtivo}) => {
       setVisible={setPontoAtivo}
       visible={pontoAtivo}
       footer={null}>
-      {data && <ResumoPonto ponto={data} showModal={pontoAtivo} />}
+      {data && (
+        <Container>
+          <ResumoPonto ponto={data} showModal={pontoAtivo} />
+        </Container>
+      )}
     </Modal>
   );
 };

@@ -4,7 +4,7 @@ import AntModal from '@ant-design/react-native/lib/modal';
 import Button from '~/components/button';
 import realm from '~/services/realm';
 import ResumoPonto from '../../pontos/resumo/index';
-import {ButtonContainer, ActionsContainer} from './styles';
+import {ButtonContainer, ActionsContainer, Container} from './styles';
 import Toast from 'react-native-toast-message';
 
 const ResumoPontoMainModal = ({
@@ -62,11 +62,13 @@ const ResumoPontoMainModal = ({
       visible={showModal}>
       {ponto && (
         <>
-          <ResumoPonto
-            ponto={ponto}
-            showModal={showModal}
-            onSubmitObservacao={onSubmitObservacao}
-          />
+          <Container>
+            <ResumoPonto
+              ponto={ponto}
+              showModal={showModal}
+              onSubmitObservacao={onSubmitObservacao}
+            />
+          </Container>
           <ActionsContainer>
             <ButtonContainer>
               <Button ghost onPress={checkQuit}>

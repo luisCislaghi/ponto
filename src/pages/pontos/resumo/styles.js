@@ -5,11 +5,6 @@ import Map from 'react-native-maps';
 import {Dimensions} from 'react-native';
 import {Image as RNImage} from 'react-native';
 
-export const Container = styled.ScrollView`
-  /* flex: 1; */
-  max-height: ${Dimensions.get('window').height * 0.9}px;
-`;
-
 export const Block = styled.View`
   flex-direction: row;
   align-items: center;

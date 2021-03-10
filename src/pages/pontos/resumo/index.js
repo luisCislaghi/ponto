@@ -2,20 +2,11 @@ import React from 'react';
 import {Marker} from 'react-native-maps';
 import moment from 'moment';
 import ObservacaoBlock from '../resumo/observacao-block';
-import {
-  Icon,
-  Block,
-  Text,
-  Title,
-  MapView,
-  Container,
-  MapContainer,
-  Image,
-} from './styles';
-const ResumoPonto = ({ponto, showModal, onSubmitObservacao}) => {
+import {Icon, Block, Text, Title, MapView, MapContainer, Image} from './styles';
+const ResumoPonto = ({ponto, showModal, footer, onSubmitObservacao}) => {
   // console.log(ponto.image.src);
   return (
-    <Container>
+    <>
       <Title>Resumo</Title>
       <Block>
         <Icon name="clock" />
@@ -57,7 +48,7 @@ const ResumoPonto = ({ponto, showModal, onSubmitObservacao}) => {
           <Image source={{uri: `file://${ponto.image.src}`}} />
         </Block>
       )}
-    </Container>
+    </>
   );
 };
 
