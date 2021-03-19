@@ -91,7 +91,9 @@ const Main = () => {
         );
       } else {
         console.log('Usuário não permitiu acessar a localização.');
-        pa.request(pa.PERMISSIONS.ACCESS_FINE_LOCATION);
+        pa.request(pa.PERMISSIONS.ACCESS_FINE_LOCATION).then(() => {
+          getLocation();
+        });
       }
     } catch (error) {
       console.log(error);
