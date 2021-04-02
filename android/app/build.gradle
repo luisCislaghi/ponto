@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply from: "../../node_modules/react-native-unimodules/gradle.groovy"
 
 import com.android.build.OutputFile
 
@@ -141,6 +142,10 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    dexOptions {
+       javaMaxHeapSize "3g"
+    }
   
     splits {
         abi {
@@ -195,6 +200,8 @@ dependencies {
     implementation project(':react-native-fs')
     
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+
+    addUnimodulesDependencies()
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
