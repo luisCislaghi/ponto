@@ -9,6 +9,7 @@ export default class PontoSchema {
       image: {type: 'Image?'},
       date: {type: 'date'},
       observation: {type: 'string?'},
+      isSync: {type: 'bool'},
     },
   };
 }

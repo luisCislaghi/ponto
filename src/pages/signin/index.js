@@ -17,7 +17,7 @@ import LoginImg from '~/assets/img/login.jpg';
 import * as LocalAuthentication from 'expo-local-authentication';
 import realm from '~/services/realm';
 
-const SignIn = () => {
+export default SignIn = () => {
   const [senha, setSenha] = React.useState('');
 
   const handleSubmit = async () => {

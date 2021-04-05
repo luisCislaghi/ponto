@@ -34,6 +34,30 @@ export default ({data, setPontoAtivo}) => {
       console.log(err);
     }
   };
+
+  const sync = () => {
+    try {
+      realm.write(() => {
+        const ponto = realm.objectForPrimaryKey('Ponto', data.id);
+        ponto.isSync = true;
+      });
+
+      Toast.show({
+        position: 'bottom',
+        text1: 'Ponto sincronizado',
+      });
+
+      // realm.close();
+    } catch (err) {
+      Toast.show({
+        type: 'error',
+        position: 'bottom',
+        text1: 'Falha ao sincronizar o ponto',
+      });
+      console.log('error', err);
+    }
+  };
+
   return (
     <SwipeContainer>
       <SwipeAction
@@ -57,9 +81,14 @@ export default ({data, setPontoAtivo}) => {
               <Data>{moment(data.date).format('LL')}</Data>
             </Block>
             <Block>
-              {/* {parseInt((Math.random() * 10) % 2) === 0 && ( // gera randomicamente só para visual */}
-              <SyncIcon name="refresh-cw" />
-              {/* )} */}
+              {!data.isSync && ( // gera randomicamente só para visual
+                <SyncIcon
+                  name="refresh-cw"
+                  onPress={() => {
+                    sync();
+                  }}
+                />
+              )}
             </Block>
           </Container>
         </Pressable>

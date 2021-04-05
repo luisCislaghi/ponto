@@ -3,8 +3,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import IconLib from 'react-native-vector-icons/Feather';
 import Main from '~/pages/main/index';
-import SignIn from '~/pages/signin';
-import SignUp from '~/pages/signup';
+import SignIn from '~/pages/signin/index';
+import SignUp from '~/pages/signup/index';
 import Pontos from '~/pages/pontos';
 
 const Routes = () => {

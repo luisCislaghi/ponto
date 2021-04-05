@@ -12,7 +12,8 @@ import {
   TextBold,
 } from './styles';
 import Button from '~/components/button';
-import {PermissionsAndroid as pa} from 'react-native';
+import {PermissionsAndroid as pa, Platform} from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
 import Geolocation from 'react-native-geolocation-service';
 import moment from 'moment';
 import {Marker, Circle} from 'react-native-maps';
@@ -41,8 +42,14 @@ const Main = () => {
     setIsCameraVisible(false);
   };
 
-  const onConfirmPhoto = () => {
+  const checkConnectivity = async () => {
+    // For Android devices
+    return NetInfo.fetch().then((state) => state.isConnected);
+  };
+
+  const onConfirmPhoto = async () => {
     if (photo) {
+      const connectionStatus = await checkConnectivity();
       const newPath = `${RNFS.DocumentDirectoryPath}/${uuid.v1()}.jpg`;
       RNFS.copyFile(photo, newPath).catch((err) => {
         console.log(err.message, err.code);
@@ -56,6 +63,7 @@ const Main = () => {
           id: uuid.v1(),
           src: newPath,
         },
+        isSync: connectionStatus,
       });
 
       setPhoto(null);

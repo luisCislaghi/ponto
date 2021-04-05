@@ -6,7 +6,7 @@ function getRealm() {
   try {
     return new Realm({
       schema: [PontoSchema, ImageSchema],
-      schemaVersion: 4,
+      schemaVersion: 6,
       migration: (oldRealm, newRealm) => {},
     });
   } catch (error) {
